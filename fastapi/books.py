@@ -58,10 +58,8 @@ async def delete_book(book_title: str):
 
 @app.get("/books/author/{author}")
 async def get_books_by_author(author:str):
-    print("hello-----")
     books_of_author = []
     for i in range(len(BOOKS)):
-        print(f"{BOOKS[i].get('author').casefold()} --- {author.casefold()}")
         if BOOKS[i].get('author').casefold() == author.casefold():
             books_of_author.append(BOOKS[i])
     return books_of_author
