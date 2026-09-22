@@ -1,0 +1,67 @@
+from fastapi import FastAPI, Body
+
+app = FastAPI()
+
+
+@app.get("/api-endpoint")
+async def first_api():
+    return {'message': 'Hello Ovi!'}
+
+
+BOOKS = [
+    {'title': 'One', 'author': 'Author One', 'category': 'science'},
+    {'title': 'Two', 'author': 'Author 2', 'category': 'math'},
+    {'title': 'Three', 'author': 'Author 3', 'category': 'biology'},
+    {'title': 'Four', 'author': 'Author 4', 'category': 'engineering'},
+]
+
+
+@app.get("/all-books")
+async def get_books():
+    return BOOKS
+
+@app.get("/books/{book_title}")
+async def read_all_books(book_title: str):
+    for book in BOOKS:
+        if book.get('title').casefold() == book_title.casefold():
+            return book
+
+
+@app.get("/books")
+async def read_category_by_query(category: str):
+    books_to_return = []
+    for book in BOOKS:
+        if (book.get('category') or "").casefold() == category.casefold():
+            books_to_return.append(book)
+    return books_to_return
+
+
+@app.post("/books/create_book")
+async def create_book(new_book: dict = Body()):
+    BOOKS.append(new_book)
+
+
+@app.put("/books/update_book")
+async def update_book(updated_book=Body()):
+    for i in range(len(BOOKS)):
+        if BOOKS[i].get('title').casefold() == updated_book.get('title').casefold():
+            BOOKS[i] = updated_book
+
+
+@app.delete("/books/delete_book/{book_title}")
+async def delete_book(book_title: str):
+    for i in range(len(BOOKS)):
+        if BOOKS[i].get('title').casefold() == book_title.casefold():
+            BOOKS.pop(i)
+            break
+
+
+@app.get("/books/author/{author}")
+async def get_books_by_author(author:str):
+    print("hello-----")
+    books_of_author = []
+    for i in range(len(BOOKS)):
+        print(f"{BOOKS[i].get('author').casefold()} --- {author.casefold()}")
+        if BOOKS[i].get('author').casefold() == author.casefold():
+            books_of_author.append(BOOKS[i])
+    return books_of_author

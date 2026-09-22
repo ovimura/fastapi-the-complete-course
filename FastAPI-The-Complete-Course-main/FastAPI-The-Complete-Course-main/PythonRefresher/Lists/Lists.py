@@ -23,4 +23,11 @@ print(my_list)
 
 
 
+zoo = ["a", "b", "c", "d"]
+print(zoo)
+zoo.pop(3)
+print(zoo)
 
+zoo.append("e")
+print(zoo)
+print(zoo[0:3])
