@@ -1,15 +1,15 @@
 from datetime import timedelta, datetime, timezone
 from typing import Annotated
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapidemo import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from starlette import status
 from ..database import SessionLocal
 from ..models import Users
 from passlib.context import CryptContext
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+from fastapidemo.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from jose import jwt, JWTError
-from fastapi.templating import Jinja2Templates
+from fastapidemo.templating import Jinja2Templates
 
 router = APIRouter(
     prefix='/auth',

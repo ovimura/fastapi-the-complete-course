@@ -3,7 +3,7 @@ from ..routers.auth import get_db, authenticate_user, create_access_token, SECRE
 from jose import jwt
 from datetime import timedelta
 import pytest
-from fastapi import HTTPException
+from fastapidemo import HTTPException
 
 app.dependency_overrides[get_db] = override_get_db
 
