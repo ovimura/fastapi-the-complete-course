@@ -10,6 +10,7 @@ from fastapi.testclient import TestClient
 from fastapi import status
 import pytest
 from ..models import Todos, Users
+from ..routers.auth import bcrypt_context
 
 load_dotenv()
 
@@ -69,7 +70,7 @@ def test_user():
         email="codingwithroby@email.com",
         first_name="Coding",
         last_name="Robby",
-        hashed_password="testpassword",
+        hashed_password=bcrypt_context.hash("test1234"),
         role="admin",
         phone_number="(111)-111-1111",
     )
@@ -80,3 +81,5 @@ def test_user():
     with engine.connect() as conn:
         conn.execute(text("DELETE FROM users"))
         conn.commit()
+
+
