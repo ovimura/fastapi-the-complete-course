@@ -19,3 +19,11 @@ def test_return_user(test_user):
 
 
 
+def test_change_password_success(test_user):
+    response = client.put("/user/password", json={"password": "test1234", "new_password": "newpassword"})
+    assert response.status_code == status.HTTP_204_NO_CONTENT
+
+def test_change_password_invalid_password(test_user):
+    response = client.put("/user/password", json={"password": "invalid_password", "new_password": "newpassword"})
+    assert response.status_code == status.HTTP_401_UNAUTHORIZED
+    assert response.json()['detail'] == "Incorrect password."
