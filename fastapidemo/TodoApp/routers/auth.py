@@ -77,6 +77,8 @@ def create_access_token(username: str, user_id: int, expires_delta: timedelta, r
 
 async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
     try:
+        if token is None:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Could not validate credentials")
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str | None = payload.get("sub")
         user_id: int | None = payload.get("id")

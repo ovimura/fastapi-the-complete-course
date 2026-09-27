@@ -1,19 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <link rel="stylesheet" type="text/css" 
-        href="{{ url_for('static', path='css/base.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='css/bootstrap.css') }}">
-        <meta charset="UTF-8">
-        <title>TodoApp</title>
-    </head>
-    <body class="container">
-        <div class="card">
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+<div class="card">
             <div class="card-header">
                 <h1>Login</h1>
             </div>
             <div class="card-body">
-                <form method="post">
+                <form id="loginForm">
                     <div class="form-group">
                         <label for="username">Username</label>
                         <input type="text" class="form-control" id="username" name="username" required autocomplete="username">
@@ -29,5 +22,5 @@
                 <p>Don't have an account? <a href="/auth/register-page">Register?</a></p>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+{% endblock %}
