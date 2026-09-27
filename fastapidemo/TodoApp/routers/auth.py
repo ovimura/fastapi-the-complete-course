@@ -55,6 +55,9 @@ templates = Jinja2Templates(directory="TodoApp/templates")
 async def render_login_page(request: Request):
     return templates.TemplateResponse(request, "login.html")
 
+@router.get("/register-page")
+async def render_login_page(request: Request):
+    return templates.TemplateResponse(request, "register.html")
 
 # Endpoints
 def authenticate_user(username: str, password: str, db: db_dependency):
