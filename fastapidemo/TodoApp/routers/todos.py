@@ -1,14 +1,18 @@
 from typing import Annotated
 from sqlalchemy.orm import Session
-from fastapi import Depends, Path, APIRouter
+from fastapi import Depends, Path, APIRouter, Request
 from starlette import status
 from pydantic import BaseModel, Field
 from ..models import Todos
 from ..database import SessionLocal
 from fastapi import HTTPException
 from .auth import get_current_user
+from fastapi.templating import Jinja2Templates
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/todos",
+    tags=["todos"]
+)
 
 
 def get_db():
