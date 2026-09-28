@@ -69,6 +69,16 @@ async def render_todo_page(request: Request):
     except HTTPException:
         return redirect_to_login()
 
+@router.get("/edit-todo-page/{todo_id}")
+async def render_edit_todo_page(request: Request, db: db_dependency, todo_id: int = Path(gt=0)):
+    try:
+        user = await get_current_user(request.cookies.get("access_token"))
+        if user is None:
+            return redirect_to_login()
+        todo = db.query(Todos).filter(Todos.id == todo_id).filter(Todos.owner_id == user.get("id")).first()
+        return templates.TemplateResponse(request, "edit-todo.html", {"todo": todo, "user": user})
+    except HTTPException:
+        return redirect_to_login()
 
 ## Endpoints
 @router.get("/")
